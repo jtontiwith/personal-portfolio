@@ -2,8 +2,13 @@ import Layout from '../src/components/Layout'
 import WorkLayout from '../src/components/work-layout'
 import AppWebsiteDisplayer from '../src/components/AppWebSiteDisplayer'
 import AppCommitFeed from '../src/components/AppCommitFeed'
+import { ReactElement } from 'react'
 
-const Work = ({ commits }) => {
+type WorkPageProps = {
+  commits: object[]
+}
+
+const Work = ({ commits }: WorkPageProps) => {
   const projects = [
     'https://losyarumos.com/treehouse/',
     'https://redeslibertad.com/',
@@ -35,7 +40,7 @@ const Work = ({ commits }) => {
 
 export default Work
 
-Work.getLayout = function getLayout(page) {
+Work.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout>
       <WorkLayout>{page}</WorkLayout>
@@ -49,16 +54,21 @@ export async function getStaticProps() {
   )
   const data = await res.json()
 
-  console.log('DATA HERE ', data)
-
-  const commits = data.map((c) => {
-    return {
-      type: c.type,
-      repo: c.repo.name.split('/').pop(),
-      commits: c.payload.commits,
-      created: c.created_at,
+  const commits = data.map(
+    (c: {
+      type: any
+      repo: { name: string }
+      payload: { commits: any }
+      created_at: any
+    }) => {
+      return {
+        type: c.type,
+        repo: c.repo.name.split('/').pop(),
+        commits: c.payload.commits || [],
+        created: c.created_at,
+      }
     }
-  })
+  )
 
   return {
     props: { commits },

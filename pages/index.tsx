@@ -4,12 +4,14 @@ import loadPosts from '../lib/fetch-posts'
 import AppPostList from '../src/components/AppPostList'
 import Link from 'next/link'
 import AppCommitFeed from '../src/components/AppCommitFeed'
+import { ReactElement } from 'react'
 
-/* type IndexPageProps = {
-  thoughts: 
-} */
+type IndexPageProps = {
+  thoughts: object[]
+  commits: object[]
+}
 
-export default function Page({ thoughts, commits }) {
+export default function Page({ thoughts, commits }: IndexPageProps) {
   return (
     <div className="py-20 font-raleway">
       <h1 className="mb-4 font-raleway text-[36px] font-bold">
@@ -43,7 +45,7 @@ export default function Page({ thoughts, commits }) {
   )
 }
 
-Page.getLayout = function getLayout(page) {
+Page.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout>
       <NestedLayout>{page}</NestedLayout>
@@ -54,14 +56,16 @@ Page.getLayout = function getLayout(page) {
 export async function getStaticProps() {
   // get medium posts
   const data = await loadPosts()
-  const items = JSON.parse(data).items.map((item) => {
-    return {
-      title: item.title,
-      link: item.link,
-      published: item.published,
-      // content: item.content,
+  const items = JSON.parse(data).items.map(
+    (item: { title: any; link: any; published: any }) => {
+      return {
+        title: item.title,
+        link: item.link,
+        published: item.published,
+        // content: item.content,
+      }
     }
-  })
+  )
 
   //get git commits
   const res = await fetch(
@@ -69,14 +73,21 @@ export async function getStaticProps() {
   )
   const gitData = await res.json()
 
-  const commits = gitData.map((c) => {
-    return {
-      type: c.type,
-      repo: c.repo.name.split('/').pop(),
-      commits: c.payload.commits,
-      created: c.created_at,
+  const commits = gitData.map(
+    (c: {
+      type: any
+      repo: { name: string }
+      payload: { commits: any }
+      created_at: any
+    }) => {
+      return {
+        type: c.type,
+        repo: c.repo.name.split('/').pop(),
+        commits: c.payload.commits || [],
+        created: c.created_at,
+      }
     }
-  })
+  )
 
   return {
     props: { thoughts: items.slice(0, 3), commits: commits.slice(0, 3) },
