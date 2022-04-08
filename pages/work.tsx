@@ -53,7 +53,7 @@ export async function getStaticProps() {
     'https://api.github.com/users/jtontiwith/events/public'
   )
   const data = await res.json()
-
+  console.log('checkin types here ', data.length)
   const commits = data.map(
     (c: {
       type: any

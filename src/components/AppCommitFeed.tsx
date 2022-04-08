@@ -3,7 +3,6 @@ type CommitFeedProps = {
 }
 
 const AppCommitFeed = ({ commits }: CommitFeedProps) => {
-  console.log('commits here ', commits)
   const commitEls = commits.map((c, i) => {
     return (
       <div className="pt-2 mb-6 border-t border-gray-200" key={i}>

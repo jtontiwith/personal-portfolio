@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-interface Props {}
 
 const WorkLayout: FC = ({ children }) => (
   <div className="flex justify-center">
