@@ -2,7 +2,7 @@ type CommitFeedProps = {
   commits: Array<any>
 }
 
-const transformDate = (isoDate) => {
+const transformDate = (isoDate: String) => {
   const dArr = isoDate.split('T')[0].split('-')
   return dArr[1] + '-' + dArr[2] + '-' + dArr[0]
 }
