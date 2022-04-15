@@ -10,11 +10,22 @@ type WorkPageProps = {
 
 const Work = ({ commits }: WorkPageProps) => {
   const projects = [
-    'https://losyarumos.com/treehouse/',
-    'https://redeslibertad.com/',
-    'https://suspicious-allen-114d47.netlify.app/',
+    {
+      site: 'https://losyarumos.com/treehouse/',
+      repo: 'https://github.com/jtontiwith/los-yarumos',
+    },
+    {
+      site: 'https://redeslibertad.com/',
+      repo: 'https://github.com/jtontiwith/freedom-networks',
+    },
+    {
+      site: 'https://jontonti.com',
+      repo: 'https://github.com/jtontiwith/personal-portfolio',
+    },
   ]
-  const projectsArr = projects.map((p) => <AppWebsiteDisplayer url={p} />)
+  const projectsArr = projects.map((p) => (
+    <AppWebsiteDisplayer siteUrl={p.site} repoUrl={p.repo} />
+  ))
 
   return (
     <div className="pt-20 font-raleway">
@@ -25,7 +36,7 @@ const Work = ({ commits }: WorkPageProps) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 justify-items-center gap-y-12">
+      <div className="grid justify-items-center gap-y-12 lg:grid-cols-2">
         {projectsArr}
       </div>
       <div className="mt-12 mx-11">

@@ -57,7 +57,7 @@ export async function getStaticProps() {
   // get medium posts
   const data = await loadPosts()
   const items = JSON.parse(data).items.map(
-    (item: { title: any; link: any; published: any }) => {
+    (item: { title: string; link: string; published: Date }) => {
       return {
         title: item.title,
         link: item.link,
