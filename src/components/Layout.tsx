@@ -6,7 +6,7 @@ interface Props {}
 const Layout: FC<Props> = ({ children, ...props }) => {
   return (
     <>
-      <div id="main-layout" className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div id="main-layout" className="px-6 mx-auto max-w-7xl lg:px-8">
         {' '}
         <AppHeader />
         {children}

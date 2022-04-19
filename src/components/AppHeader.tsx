@@ -1,28 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import logo from '../../public/logo.jpg'
-import AppNav from '../components/AppNav'
-import { useRouter } from 'next/router'
+import AppNav from './AppNav'
 
 const AppHeader = () => {
-  const { pathname } = useRouter()
-  const dot = <div>&#8226;</div>
-
-  const links = [
-    { name: 'home', path: '/' },
-    { name: 'thoughts', path: '/thoughts' },
-    { name: 'work', path: '/work' },
-  ].map((l, i) => {
-    return (
-      <div className="flex flex-col mr-10 text-center" key={i}>
-        <Link href={l.path}>
-          <a>{l.name}</a>
-        </Link>
-        {pathname === l.path && dot}
-      </div>
-    )
-  })
-
   return (
     <header className="flex justify-between py-2 pt-4 text-sm font-bold uppercase">
       <Link href="/">
@@ -42,12 +21,11 @@ const AppHeader = () => {
                 d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
               />
             </svg>
-            {/*<Image src={logo} width="55" height="55" />*/}
             <div className="ml-4 uppercase">Jon Tonti</div>
           </div>
         </a>
       </Link>
-      <AppNav>{links}</AppNav>
+      <AppNav />
     </header>
   )
 }

@@ -39,7 +39,7 @@ const Work = ({ commits }: WorkPageProps) => {
       <div className="grid justify-items-center gap-y-12 lg:grid-cols-2">
         {projectsArr}
       </div>
-      <div className="mt-12 mx-11">
+      <div className="mt-12 lg:mx-11">
         <h2 className="mb-10 text-sm font-bold uppercase text-sky-800">
           recent commits
         </h2>
